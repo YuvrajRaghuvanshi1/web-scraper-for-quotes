@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{%load static%}
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css.css' %}">
+  </head>
+<body>
+
+
+    <div class="jumbotron">
+        <center><h1>Quotes</h1>
+          <form>
+            <a href="{% url 'scrape' %}" class="btn btn-success">Get </a>
+        </form>
+    </center>
+    
+    <div class='thisform'><form class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2" action="{% url 'search' %}" method="GET" value="{{request.GET.q}}">
+      <i class="fas fa-search" aria-hidden="true"></i>
+     <input class="form-control form-control-sm ml-3 w-75" type="text" name="q" value="{{request.GET.q}}" placeholder="Search"/>
+      <input type="submit" name="submit" value="Search"/>
+      </form>
+    
+      
+      {% if submitbutton == 'Search' and request.GET.q != '' %}
+      {% if results %}
+      <h1>Results for <b>{{ request.GET.q }}</b></h1>
+      <br/><br/>
+      <div class="card-columns" style="padding: 10px; margin: 20px;">
+      {% for result in results %}
+      <div class="card" style="width: 18rem;border:5px black solid;">
+  
+        <div class="card-body">
+          <h5 class="card-title"><div class="card-body">
+      
+      {{result.quote}}
+    </div>
+    </div></h5>
+  </div>
+      
+      {% endfor %}
+    </div>
+      {% else %}
+      No search results for this query
+      {% endif %}
+      {% endif %}</div></div>
+  <div class="card-columns" style="padding: 10px; margin: 20px;">
+    {% for object in object_list %}
+    <div class="card" style="width: 18rem;border:5px black solid;">
+  
+  <div class="card-body">
+    <h5 class="card-title"><div class="card-body">
+     {{object.quote}}
+     {{object.image}}
+    </div></h5>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+    <script
+src="http://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
